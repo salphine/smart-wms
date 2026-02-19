@@ -1,10 +1,9 @@
 ﻿import streamlit as st
-import subprocess
 import sys
 import os
-import webbrowser
 from datetime import datetime
 import requests
+import time
 
 # Page config
 st.set_page_config(
@@ -120,15 +119,17 @@ if 'apps' not in st.session_state:
         'scan_viewer': {'port': 8506, 'status': 'stopped', 'process': None}
     }
 
-# Check backend status
+# Check backend status (with environment variable support for cloud deployment)
 @st.cache_data(ttl=5)
 def check_backend():
     try:
-        response = requests.get("http://localhost:8000/health", timeout=2)
+        # Get backend URL from environment or use localhost for development
+        backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+        response = requests.get(f"{backend_url}/health", timeout=2)
         if response.status_code == 200:
             # Get additional stats
-            inv_response = requests.get("http://localhost:8000/api/inventory/levels", timeout=2)
-            scan_response = requests.get("http://localhost:8000/api/scans/recent?limit=1", timeout=2)
+            inv_response = requests.get(f"{backend_url}/api/inventory/levels", timeout=2)
+            scan_response = requests.get(f"{backend_url}/api/scans/recent?limit=1", timeout=2)
             
             return {
                 'status': 'online',
@@ -136,8 +137,8 @@ def check_backend():
                 'scan_count': len(scan_response.json()) if scan_response.status_code == 200 else 0,
                 'last_check': datetime.now()
             }
-    except:
-        pass
+    except Exception as e:
+        st.warning(f"Backend connection issue: {str(e)}")
     return {'status': 'offline', 'inventory_count': 0, 'scan_count': 0, 'last_check': datetime.now()}
 
 # Get backend status
@@ -188,50 +189,15 @@ if backend['status'] == 'online':
         </div>
         """, unsafe_allow_html=True)
 
-# Function to start an app
+# Function to start an app (Streamlit Cloud compatible)
 def start_app(app_name, script_name, port):
-    if st.session_state.apps[app_name]['status'] == 'stopped':
-        try:
-            # Build the command
-            cmd = f"streamlit run {script_name} --server.port {port} --server.headless true"
-            
-            # Start the process (platform independent)
-            if sys.platform == 'win32':
-                process = subprocess.Popen(
-                    cmd,
-                    shell=True,
-                    creationflags=subprocess.CREATE_NEW_CONSOLE
-                )
-            else:
-                process = subprocess.Popen(
-                    cmd,
-                    shell=True,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL
-                )
-            
-            st.session_state.apps[app_name]['status'] = 'running'
-            st.session_state.apps[app_name]['process'] = process
-            return True
-        except Exception as e:
-            st.error(f"Error starting {app_name}: {e}")
-            return False
+    """In Streamlit Cloud, apps are accessible via URL navigation"""
+    st.info("📌 Multi-app support is available locally. For cloud deployment, navigate using the sidebar menu.")
     return False
 
 # Function to stop an app
 def stop_app(app_name):
-    if st.session_state.apps[app_name]['status'] == 'running':
-        try:
-            if st.session_state.apps[app_name]['process']:
-                if sys.platform == 'win32':
-                    st.session_state.apps[app_name]['process'].terminate()
-                else:
-                    st.session_state.apps[app_name]['process'].kill()
-            st.session_state.apps[app_name]['status'] = 'stopped'
-            st.session_state.apps[app_name]['process'] = None
-            return True
-        except:
-            return False
+    """In Streamlit Cloud, apps are managed automatically"""
     return False
 
 # Main content
