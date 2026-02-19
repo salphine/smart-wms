@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -10,7 +10,7 @@ import time
 # Page config - MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(
     page_title="Smart WMS - Advanced Dashboard",
-    page_icon="??",
+    page_icon="🏭",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -108,7 +108,7 @@ if 'last_update' not in st.session_state:
 # Dashboard Header
 st.markdown("""
 <div class="dashboard-title">
-    <h1 style="margin:0; font-size:2.5rem;">?? Smart Warehouse Management System</h1>
+    <h1 style="margin:0; font-size:2.5rem;">🏭 Smart Warehouse Management System</h1>
     <p style="margin:0.5rem 0 0 0; opacity:0.9;">Real-time RFID Inventory Tracking & Analytics</p>
 </div>
 """, unsafe_allow_html=True)
@@ -119,12 +119,12 @@ with st.sidebar:
     st.markdown("## Control Panel")
     
     # Refresh settings
-    st.markdown("### ?? Refresh Settings")
+    st.markdown("### 🔄 Refresh Settings")
     auto_refresh = st.checkbox("Enable Auto-refresh", value=True)
     refresh_interval = st.slider("Refresh Interval (seconds)", min_value=5, max_value=60, value=10, step=5)
     
     # Filters
-    st.markdown("### ?? Filters")
+    st.markdown("### 🔍 Filters")
     
     # Zone filter
     zones = ["All Zones", "Aisle A", "Aisle B", "Aisle C", "Loading Dock", 
@@ -132,7 +132,7 @@ with st.sidebar:
     selected_zone = st.selectbox("Location Zone", zones)
     
     # Manual refresh button
-    if st.button("?? Refresh Now", use_container_width=True):
+    if st.button("🔄 Refresh Now", use_container_width=True):
         st.cache_data.clear()
         st.rerun()
     
@@ -179,7 +179,7 @@ with st.spinner("Loading dashboard data..."):
 
 # Check API connection
 if inventory_data is None:
-    st.error("?? Cannot connect to backend API. Please ensure the server is running.")
+    st.error("⚠️ Cannot connect to backend API. Please ensure the server is running.")
     st.info("Start the backend with: uvicorn app.main:app --reload --port 8000")
     st.stop()
 
@@ -201,7 +201,7 @@ if not df_inventory.empty:
     low_stock_count = len(df_inventory[df_inventory['needs_reorder'] == True]) if 'needs_reorder' in df_inventory.columns else 0
     
     # Metrics Row
-    st.markdown("## ?? Key Metrics")
+    st.markdown("## 📊 Key Metrics")
     col1, col2, col3, col4, col5 = st.columns(5)
     
     with col1:
@@ -225,7 +225,7 @@ if not df_inventory.empty:
     with col_left:
         st.markdown("""
         <div class="section-header">
-            <h3>?? Inventory Distribution</h3>
+            <h3>📈 Inventory Distribution</h3>
         </div>
         """, unsafe_allow_html=True)
         
@@ -281,7 +281,7 @@ if not df_inventory.empty:
         # Low Stock Alerts
         st.markdown("""
         <div class="section-header">
-            <h3>?? Low Stock Alerts</h3>
+            <h3>⚠️ Low Stock Alerts</h3>
         </div>
         """, unsafe_allow_html=True)
         
@@ -294,12 +294,12 @@ if not df_inventory.empty:
                     st.caption(f"Alert created: {alert.get('created_at', 'Just now')}")
                     st.divider()
         else:
-            st.success("? No low stock alerts at this time")
+            st.success("✅ No low stock alerts at this time")
         
         # Stock Distribution Pie Chart
         st.markdown("""
         <div class="section-header">
-            <h3>?? Stock Distribution</h3>
+            <h3>🥧 Stock Distribution</h3>
         </div>
         """, unsafe_allow_html=True)
         
@@ -322,7 +322,7 @@ if not df_inventory.empty:
     # ===== FIXED RECENT SCANS SECTION =====
     st.markdown("""
     <div class="section-header">
-        <h3>?? Recent Scans</h3>
+        <h3>📋 Recent Scans</h3>
     </div>
     """, unsafe_allow_html=True)
     
@@ -391,7 +391,7 @@ if not df_inventory.empty:
         
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("? Add Test Scan 1"):
+            if st.button("➕ Add Test Scan 1"):
                 try:
                     response = requests.post(
                         f"{API_URL}/api/scans/",
@@ -406,7 +406,7 @@ if not df_inventory.empty:
                     st.error("Error adding scan")
         
         with col2:
-            if st.button("? Add Test Scan 2"):
+            if st.button("➕ Add Test Scan 2"):
                 try:
                     response = requests.post(
                         f"{API_URL}/api/scans/",
@@ -421,14 +421,14 @@ if not df_inventory.empty:
                     st.error("Error adding scan")
         
         with col3:
-            if st.button("?? Refresh"):
+            if st.button("🔄 Refresh"):
                 st.cache_data.clear()
                 st.rerun()
     
     # Product Health Dashboard
     st.markdown("""
     <div class="section-header">
-        <h3>??? Product Health Dashboard</h3>
+        <h3>🏷️ Product Health Dashboard</h3>
     </div>
     """, unsafe_allow_html=True)
     
@@ -480,7 +480,7 @@ if not df_inventory.empty:
     
     # Footer
     st.divider()
-    st.caption(f"?? Smart Warehouse Management System - Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    st.caption(f"🏭 Smart Warehouse Management System - Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 # Auto-refresh logic
 if auto_refresh:
