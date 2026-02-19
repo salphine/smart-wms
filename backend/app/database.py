@@ -5,7 +5,9 @@ from sqlalchemy.orm import sessionmaker
 from pathlib import Path
 
 # Create database directory if it doesn't exist
-db_path = Path(__file__).parent.parent / "wms.db"
+db_dir = Path(__file__).parent.parent / "data"
+db_dir.mkdir(exist_ok=True)
+db_path = db_dir / "wms.db"
 DATABASE_URL = f"sqlite:///{db_path}"
 
 # SQLite specific configuration
