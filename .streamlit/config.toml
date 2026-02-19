@@ -1,0 +1,18 @@
+﻿[server]
+# Use the port provided by the cloud service
+port = 8501
+# Allow connections from any network address
+address = "0.0.0.0"
+# Don't open browser on server
+headless = true
+
+[browser]
+# Disable usage stats
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#ff4b4b"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#31333F"
+font = "sans serif"
