@@ -3,14 +3,15 @@ headless = true
 address = "0.0.0.0"
 port = 8501
 maxUploadSize = 200
-enableXsrfProtection = true
-enableCORS = true
+enableCORS = false
+enableXsrfProtection = false
 
 [browser]
 gatherUsageStats = false
 
-[client]
-showErrorDetails = false
-toolbarMode = "minimal"
+[theme]
+primaryColor = "#ff4b4b"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
 textColor = "#262730"
 font = "sans serif"
