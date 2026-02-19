@@ -1,18 +1,15 @@
 ﻿[server]
-# Use the port provided by the cloud service
-port = 8501
-# Allow connections from any network address
-address = "0.0.0.0"
-# Don't open browser on server
 headless = true
+address = "0.0.0.0"
+port = 8501
+maxUploadSize = 200
 
 [browser]
-# Disable usage stats
 gatherUsageStats = false
 
 [theme]
 primaryColor = "#ff4b4b"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f0f2f6"
-textColor = "#31333F"
+textColor = "#262730"
 font = "sans serif"
