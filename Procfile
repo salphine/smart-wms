@@ -1,0 +1,1 @@
+web: streamlit run frontend/navigation_hub.py --logger.level=error --client.showErrorDetails=false
