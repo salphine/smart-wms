@@ -3,12 +3,13 @@
 setup(
     name="smart-wms",
     version="1.0.0",
-    packages=find_packages(),
+    packages=find_packages(exclude=["frontend", "tests"]),
     install_requires=[
-        "streamlit==1.22.0",
-        "pandas==1.5.3",
-        "numpy==1.23.5",
-        "plotly==5.14.0",
-        "requests==2.28.2",
+        # Backend only - Frontend has separate requirements
+        "fastapi>=0.104.0",
+        "uvicorn>=0.24.0",
+        "sqlalchemy>=2.0.0",
+        "pydantic>=2.5.0",
+        "python-dotenv>=1.0.0",
     ],
 )
