@@ -569,11 +569,11 @@ with tab3:
     
     with col2:
         st.markdown("#### Team Online")
-        st.success("🟢 John (Manager)")
-        st.success("🟢 Sarah (Shipping)")
-        st.success("🟢 Mike (Tech)")
-        st.warning("🟡 Alice (Break)")
-        st.error("🔴 Bob (Offline)")
+        st.success("🟢 Salphine Chemos (Manager)")
+        st.success("🟢 Kelvin Glance  (Shipping)")
+        st.success("🟢 Mike Kibet (Tech)")
+        st.warning("🟡 Brendah Chepkoech(Break)")
+        st.error("🔴 Broivin wasama (Offline)")
         
         st.markdown("#### Quick Actions")
         if st.button("📹 Start Video Call", use_container_width=True):
@@ -811,10 +811,10 @@ with tab7:
         
         # Show team members
         st.markdown("#### 👥 Team Members")
-        st.success("🟢 John (Manager)")
-        st.success("🟢 Sarah (Shipping)")
-        st.success("🟢 Mike (Tech)")
-        st.warning("🟡 Alice (Break)")
+        st.success("🟢 Salphine Chemos (Manager)")
+        st.success("🟢 Kelvin Glance (Shipping)")
+        st.success("🟢 Mike Kibet (Tech)")
+        st.warning("🟡 Brendah Chepkoech (Break)")
     
     # Show meeting options if room is created
     if 'show_meeting_options' in st.session_state and st.session_state['show_meeting_options']:
@@ -920,7 +920,7 @@ footer_html = f'''
         <span class="metric-badge">📈 Uptime: 99.9%</span>
         <span class="metric-badge">👥 Users: 23</span>
     </div>
-    <div style="font-size: 11px; color: #ccc;">© 2026 Smart WMS | {current_time}</div>
+    <div style="font-size: 11px; color: #ccc;">© 2026 Salphine chemos Smart WMS | {current_time}</div>
 </div>
 '''
 st.markdown(footer_html, unsafe_allow_html=True)
