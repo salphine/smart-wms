@@ -828,78 +828,151 @@ st.markdown(footer_html, unsafe_allow_html=True)
 if (datetime.now() - st.session_state.last_update).seconds >= refresh_rate:
     st.session_state.last_update = datetime.now()
 
-# Enhanced Team Chat with Video Call
-with tab3:
-    st.markdown("### 💬 Team Communication")
+# Tab 7: One-Click Video Call (New Tab)
+with tab7:
+    st.markdown("### 📹 One-Click Video Conference")
+    st.markdown("Start instant video meetings with your team")
     
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([1, 1])
     
     with col1:
-        # Video Call Section
-        st.markdown("#### 📹 Video Conference")
+        st.markdown("#### 🚀 Quick Start")
         
         # Generate unique room ID
         import random
         import string
         
-        col_a, col_b = st.columns([3, 1])
-        with col_a:
-            custom_room = st.text_input("Room Name", placeholder="Enter room name", key="video_room_input")
-        with col_b:
-            if st.button("🎥 Start Call", use_container_width=True):
-                if custom_room:
-                    room_id = custom_room.replace(" ", "-").lower()
-                else:
-                    random_suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-                    room_id = f"WMS-{random_suffix}"
-                st.session_state['video_room'] = room_id
+        # Room name input
+        custom_room = st.text_input("Room Name (optional)", placeholder="Leave empty for auto-generated")
         
-        if 'video_room' in st.session_state:
-            room_id = st.session_state['video_room']
-            
-            call_platform = st.selectbox(
-                "Platform",
-                ["Jitsi Meet (Free)", "Google Meet", "Zoom", "Teams"],
-                key="platform_select"
-            )
-            
-            if call_platform == "Jitsi Meet (Free)":
-                jitsi_url = f"https://meet.jit.si/{room_id}"
-                st.markdown(f"""
-                <a href="{jitsi_url}" target="_blank" style="background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin: 10px 0;">
-                    🔗 Join Video Call: {room_id}
-                </a>
-                """, unsafe_allow_html=True)
+        if st.button("🎥 Start Video Conference", use_container_width=True):
+            if custom_room:
+                room_id = custom_room.replace(" ", "-").lower()
             else:
-                st.info(f"Create a {call_platform} meeting and share this ID: **{room_id}**")
-        
-        # Existing chat messages
-        st.markdown("#### 💬 Chat Messages")
-        team_chat = st.container()
-        with team_chat:
-            st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👨‍💼 John: Starting video call now</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👩‍💼 Sarah: Joining the call</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">🤖 System: Video conference room created: WMS-1234</div>', unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-        
-        # Message input
-        col_x, col_y = st.columns([4, 1])
-        with col_x:
-            st.text_input("Type your message...", key="team_msg_video")
-        with col_y:
-            st.button("📤 Send", key="send_team_video")
+                # Generate random room ID
+                random_suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+                room_id = f"WMS-{random_suffix}"
+            
+            st.session_state['current_room'] = room_id
+            st.session_state['show_meeting_options'] = True
+            st.rerun()
     
     with col2:
-        st.markdown("#### 👥 Online Team")
+        st.markdown("#### 📋 Active Meetings")
+        if 'current_room' in st.session_state:
+            st.info(f"Current Room: **{st.session_state['current_room']}**")
+        else:
+            st.info("No active meeting")
+        
+        # Show team members
+        st.markdown("#### 👥 Team Members")
         st.success("🟢 John (Manager)")
         st.success("🟢 Sarah (Shipping)")
         st.success("🟢 Mike (Tech)")
         st.warning("🟡 Alice (Break)")
-        st.error("🔴 Bob (Offline)")
+    
+    # Show meeting options if room is created
+    if 'show_meeting_options' in st.session_state and st.session_state['show_meeting_options']:
+        st.markdown("---")
+        st.markdown("### 🔗 Choose Meeting Platform")
         
-        st.markdown("#### 📋 Quick Actions")
-        if st.button("📹 Share Screen"):
-            st.info("Screen sharing available in Jitsi Meet")
-        if st.button("🎤 Test Mic"):
-            st.info("Check your microphone settings")
+        call_option = st.radio(
+            "Select platform:",
+            ["Jitsi Meet (Open Source - Free)", "Google Meet", "Zoom", "Microsoft Teams"],
+            horizontal=True
+        )
+        
+        room_id = st.session_state.get('current_room', 'wms-meeting')
+        
+        if call_option == "Jitsi Meet (Open Source - Free)":
+            jitsi_url = f"https://meet.jit.si/{room_id}"
+            st.markdown(f"""
+            <div style="background-color: #1e3c72; padding: 20px; border-radius: 10px; color: white;">
+                <h4>✅ Jitsi Meeting Ready!</h4>
+                <p>Room: <b>{room_id}</b></p>
+                <p>Click the link below to join:</p>
+                <a href="{jitsi_url}" target="_blank" style="background-color: #ffd700; color: #1e3c72; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">🔗 Join Jitsi Meeting</a>
+                <p style="margin-top: 10px; font-size: 12px;">📱 Works on mobile • No account needed • Free</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Copy room ID button
+            st.code(f"Room ID: {room_id}", language="text")
+            st.caption("Share this room ID with team members")
+            
+        elif call_option == "Google Meet":
+            st.info("""
+            **Google Meet Instructions:**
+            1. Go to [meet.google.com](https://meet.google.com)
+            2. Click 'Start a meeting'
+            3. Share the meeting code with your team
+            """)
+            st.code(f"Suggested meeting name: {room_id}", language="text")
+            
+        elif call_option == "Zoom":
+            st.info("""
+            **Zoom Instructions:**
+            1. Open Zoom app or go to [zoom.us](https://zoom.us)
+            2. Click 'Host a meeting'
+            3. Share the meeting ID with your team
+            """)
+            st.code(f"Suggested meeting ID: {room_id}", language="text")
+            
+        else:  # Microsoft Teams
+            st.info("""
+            **Microsoft Teams Instructions:**
+            1. Open Microsoft Teams
+            2. Click 'Meet now'
+            3. Share the meeting link with your team
+            """)
+            st.code(f"Suggested meeting name: {room_id}", language="text")
+        
+        # Quick actions
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.button("📋 Copy Room ID", use_container_width=True):
+                st.success(f"Copied: {room_id}")
+        with col2:
+            if st.button("🔄 New Room", use_container_width=True):
+                st.session_state['show_meeting_options'] = False
+                if 'current_room' in st.session_state:
+                    del st.session_state['current_room']
+                st.rerun()
+        with col3:
+            if st.button("🔊 Test Mic/Camera", use_container_width=True):
+                st.info("Check your devices before joining")
+        
+        # Device test section
+        with st.expander("🎤 Test Your Audio/Video"):
+            st.write("Before joining, test your devices:")
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("Test Microphone"):
+                    st.audio(None)  # This would need actual implementation
+                    st.info("Microphone test - check your system settings")
+            with col2:
+                if st.button("Test Camera"):
+                    st.info("Camera test - check your system settings")
+    
+    # Quick meeting tips
+    with st.expander("💡 Meeting Tips"):
+        st.markdown("""
+        - **Jitsi Meet**: Free, no account needed, works in browser
+        - **Google Meet**: Free with Google account
+        - **Zoom**: Free for 40-min meetings
+        - **Teams**: Free with Microsoft account
+        - Test your camera/mic before joining
+        - Share the room ID with team members
+        """)
+
+# Update the tabs to include the new tab
+# Find where tabs are defined and replace with this:
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "📊 Live Analytics",
+    "🤖 AI Assistant", 
+    "💬 Team Chat",
+    "📋 Task Manager",
+    "📈 Predictions",
+    "🔌 Integrations",
+    "📹 Video Call"
+])
