@@ -1,4 +1,4 @@
-﻿"""
+"""
 Advanced Real-Time Dashboard with Multiple Applications
 Smart Warehouse Management System - Fixed Version
 """
@@ -20,7 +20,7 @@ from streamlit_autorefresh import st_autorefresh
 # Page configuration
 st.set_page_config(
     page_title="Smart WMS - Advanced Dashboard",
-    page_icon="🏭",
+    page_icon="??",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
@@ -215,24 +215,24 @@ if 'initialized' not in st.session_state:
     st.session_state.last_update = datetime.now()
 
 # Auto-refresh configuration
-refresh_rate = st.sidebar.slider("🔄 Refresh Rate (seconds)", 1, 60, 5)
+refresh_rate = st.sidebar.slider("?? Refresh Rate (seconds)", 1, 60, 5)
 count = st_autorefresh(interval=refresh_rate * 1000, key="auto_refresh")
 
 # Sidebar with real-time info
 with st.sidebar:
-    st.markdown("## 🤖 AI Control Center")
+    st.markdown("## ?? AI Control Center")
     
     # Real-time clock
-    st.markdown(f"### 🕐 {datetime.now().strftime('%H:%M:%S')}")
+    st.markdown(f"### ?? {datetime.now().strftime('%H:%M:%S')}")
     
     # User profile
-    with st.expander("👤 User Profile", expanded=True):
+    with st.expander("?? User Profile", expanded=True):
         st.markdown("**Logged in as:** Admin User")
         st.markdown(f"**Last login:** {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         st.progress(0.7, text="Profile Completion")
     
     # System health
-    with st.expander("🖥️ System Health", expanded=True):
+    with st.expander("??? System Health", expanded=True):
         col1, col2 = st.columns(2)
         with col1:
             st.markdown("CPU:")
@@ -244,25 +244,25 @@ with st.sidebar:
             st.markdown("78%")
     
     # Quick actions
-    with st.expander("⚡ Quick Actions", expanded=True):
-        if st.button("📊 Generate Report", use_container_width=True):
+    with st.expander("? Quick Actions", expanded=True):
+        if st.button("?? Generate Report", width='stretch'):
             st.session_state.notifications.append({
                 'time': datetime.now(),
                 'message': 'Report generation started',
                 'type': 'info'
             })
         
-        if st.button("🔄 Sync Data", use_container_width=True):
+        if st.button("?? Sync Data", width='stretch'):
             with st.spinner("Syncing..."):
                 time.sleep(2)
             st.success("Data synced!")
         
-        if st.button("📢 Send Alerts", use_container_width=True):
+        if st.button("?? Send Alerts", width='stretch'):
             st.info("Alerts sent to all users")
     
     # System performance metrics
     st.markdown("---")
-    st.markdown("### 📊 System Performance")
+    st.markdown("### ?? System Performance")
     
     # Real-time metrics
     metrics_col1, metrics_col2 = st.columns(2)
@@ -274,20 +274,20 @@ with st.sidebar:
         st.metric("Network", "1.2 MB/s", "+0.3")
     
     # Data stream indicator
-    st.markdown("### 📡 Data Stream")
+    st.markdown("### ?? Data Stream")
     st.progress(random.uniform(0.5, 0.9), text=f"Live Data: {random.randint(100, 500)} packets/s")
 
 # Main header
 current_time = datetime.now().strftime('%H:%M:%S')
 st.markdown(f"""
 <div class="main-header">
-    <h1>🏭 Advanced Smart WMS Dashboard</h1>
+    <h1>?? Advanced Smart WMS Dashboard</h1>
     <p style="font-size: 1.2rem;">Real-time warehouse management with AI-powered insights and automation</p>
     <div style="display: flex; gap: 20px; margin-top: 20px;">
-        <span>🔴 Live</span>
-        <span>📊 Real-time Analytics</span>
-        <span>🤖 AI Assistant</span>
-        <span>⚡ Auto-refresh: {refresh_rate}s</span>
+        <span>?? Live</span>
+        <span>?? Real-time Analytics</span>
+        <span>?? AI Assistant</span>
+        <span>? Auto-refresh: {refresh_rate}s</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -305,12 +305,12 @@ if st.session_state.notifications:
 
 # Create tabs for different real-time applications
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Live Analytics",
-    "🤖 AI Assistant",
-    "💬 Team Chat",
-    "📋 Task Manager",
-    "📈 Predictions",
-    "🔌 Integrations"
+    "?? Live Analytics",
+    "?? AI Assistant",
+    "?? Team Chat",
+    "?? Task Manager",
+    "?? Predictions",
+    "?? Integrations"
 ])
 
 # Tab 1: Live Analytics
@@ -318,7 +318,7 @@ with tab1:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 📈 Real-time Sensor Data")
+        st.markdown("### ?? Real-time Sensor Data")
         
         # Simulate real-time data
         current_time = datetime.now()
@@ -350,10 +350,10 @@ with tab1:
             hovermode='x unified',
             height=400
         )
-        st.plotly_chart(fig_live, use_container_width=True)
+        st.plotly_chart(fig_live, width='stretch')
     
     with col2:
-        st.markdown("### 📊 Live Metrics")
+        st.markdown("### ?? Live Metrics")
         
         # Real-time gauges
         col_a, col_b = st.columns(2)
@@ -364,7 +364,7 @@ with tab1:
             fig_gauge = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=temp,
-                title={'text': "Temperature °C"},
+                title={'text': "Temperature �C"},
                 domain={'x': [0, 1], 'y': [0, 1]},
                 gauge={'axis': {'range': [None, 50]},
                        'bar': {'color': "darkblue"},
@@ -374,7 +374,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 40}}))
             fig_gauge.update_layout(height=250)
-            st.plotly_chart(fig_gauge, use_container_width=True)
+            st.plotly_chart(fig_gauge, width='stretch')
         
         with col_b:
             # Humidity gauge
@@ -392,22 +392,22 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 90}}))
             fig_gauge2.update_layout(height=250)
-            st.plotly_chart(fig_gauge2, use_container_width=True)
+            st.plotly_chart(fig_gauge2, width='stretch')
         
         # Live alerts
-        st.markdown("### 🚨 Live Alerts")
+        st.markdown("### ?? Live Alerts")
         alert_container = st.container()
         with alert_container:
             if random.random() > 0.7:
-                st.error(f"⚠️ High temperature detected in Zone A at {datetime.now().strftime('%H:%M:%S')}")
+                st.error(f"?? High temperature detected in Zone A at {datetime.now().strftime('%H:%M:%S')}")
             if random.random() > 0.8:
-                st.warning(f"⚠️ Low inventory alert: SKU-{random.randint(100,999)}")
+                st.warning(f"?? Low inventory alert: SKU-{random.randint(100,999)}")
             if random.random() > 0.9:
-                st.success(f"✅ System optimized at {datetime.now().strftime('%H:%M:%S')}")
+                st.success(f"? System optimized at {datetime.now().strftime('%H:%M:%S')}")
 
 # Tab 2: AI Assistant
 with tab2:
-    st.markdown("### 🤖 AI Warehouse Assistant")
+    st.markdown("### ?? AI Warehouse Assistant")
     st.markdown("Ask me anything about your warehouse operations")
     
     # Chat interface
@@ -417,13 +417,13 @@ with tab2:
         
         # Display chat messages
         if not st.session_state.chat_messages:
-            st.markdown('<div class="message bot-message">🤖 Hello! How can I help you with your warehouse today?</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">?? Hello! How can I help you with your warehouse today?</div>', unsafe_allow_html=True)
         else:
             for msg in st.session_state.chat_messages[-10:]:
                 if msg['type'] == 'user':
-                    st.markdown(f'<div class="message user-message">👤 {msg["content"]}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="message user-message">?? {msg["content"]}</div>', unsafe_allow_html=True)
                 else:
-                    st.markdown(f'<div class="message bot-message">🤖 {msg["content"]}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="message bot-message">?? {msg["content"]}</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -432,7 +432,7 @@ with tab2:
     with col1:
         user_input = st.text_input("Type your message:", key="ai_input")
     with col2:
-        if st.button("Send", use_container_width=True):
+        if st.button("Send", width='stretch'):
             if user_input:
                 st.session_state.chat_messages.append({'type': 'user', 'content': user_input})
                 
@@ -451,14 +451,14 @@ with tab2:
                 st.rerun()
     
     # AI suggestions
-    with st.expander("💡 AI Suggestions", expanded=True):
-        st.info("📦 Consider restocking SKU-123 - below threshold")
-        st.info("⚡ Peak order time detected - allocate more resources")
-        st.info("🔧 Maintenance recommended for Conveyor Belt B in 2 hours")
+    with st.expander("?? AI Suggestions", expanded=True):
+        st.info("?? Consider restocking SKU-123 - below threshold")
+        st.info("? Peak order time detected - allocate more resources")
+        st.info("?? Maintenance recommended for Conveyor Belt B in 2 hours")
 
 # Tab 3: Team Chat
 with tab3:
-    st.markdown("### 💬 Team Communication")
+    st.markdown("### ?? Team Communication")
     
     col1, col2 = st.columns([2, 1])
     
@@ -470,10 +470,10 @@ with tab3:
         team_chat = st.container()
         with team_chat:
             st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👨‍💼 John: Inventory check completed</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👩‍💼 Sarah: Shipping department ready</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👨‍🔧 Mike: Maintenance scheduled for 3 PM</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">🤖 System: New order received #ORD-789</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">????? John: Inventory check completed</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">????? Sarah: Shipping department ready</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">????? Mike: Maintenance scheduled for 3 PM</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">?? System: New order received #ORD-789</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Message input
@@ -481,25 +481,25 @@ with tab3:
         with col_a:
             st.text_input("Type your message...", key="team_msg")
         with col_b:
-            st.button("📤 Send", key="send_team")
+            st.button("?? Send", key="send_team")
     
     with col2:
         st.markdown("#### Team Online")
-        st.success("🟢 John (Manager)")
-        st.success("🟢 Sarah (Shipping)")
-        st.success("🟢 Mike (Tech)")
-        st.warning("🟡 Alice (Break)")
-        st.error("🔴 Bob (Offline)")
+        st.success("?? John (Manager)")
+        st.success("?? Sarah (Shipping)")
+        st.success("?? Mike (Tech)")
+        st.warning("?? Alice (Break)")
+        st.error("?? Bob (Offline)")
         
         st.markdown("#### Quick Actions")
-        if st.button("📹 Start Video Call"):
+        if st.button("?? Start Video Call"):
             st.info("Video call feature coming soon!")
-        if st.button("📢 Broadcast Message"):
+        if st.button("?? Broadcast Message"):
             st.info("Broadcast sent to all team members")
 
 # Tab 4: Task Manager
 with tab4:
-    st.markdown("### 📋 Real-time Task Management")
+    st.markdown("### ?? Real-time Task Management")
     
     col1, col2 = st.columns([2, 1])
     
@@ -517,7 +517,7 @@ with tab4:
         
         st.dataframe(
             tasks_data,
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
             column_config={
                 "Progress": st.column_config.ProgressColumn(
@@ -537,7 +537,7 @@ with tab4:
             color='Priority',
             title="Task Completion Progress"
         )
-        st.plotly_chart(fig_tasks, use_container_width=True)
+        st.plotly_chart(fig_tasks, width='stretch')
     
     with col2:
         st.markdown("#### Create New Task")
@@ -552,7 +552,7 @@ with tab4:
 
 # Tab 5: Predictions
 with tab5:
-    st.markdown("### 📈 AI-Powered Predictions")
+    st.markdown("### ?? AI-Powered Predictions")
     
     # Prediction charts
     col1, col2 = st.columns(2)
@@ -592,7 +592,7 @@ with tab5:
         ))
         
         fig_forecast.update_layout(title="30-Day Demand Forecast", height=400)
-        st.plotly_chart(fig_forecast, use_container_width=True)
+        st.plotly_chart(fig_forecast, width='stretch')
     
     with col2:
         # Inventory prediction
@@ -605,22 +605,22 @@ with tab5:
             go.Bar(name='Predicted (30 days)', x=categories, y=predicted_inv)
         ])
         fig_inv_pred.update_layout(title="Inventory Level Prediction", height=400, barmode='group')
-        st.plotly_chart(fig_inv_pred, use_container_width=True)
+        st.plotly_chart(fig_inv_pred, width='stretch')
     
     # AI Insights
-    st.markdown("### 🧠 AI Insights")
+    st.markdown("### ?? AI Insights")
     insight_cols = st.columns(3)
     
     with insight_cols[0]:
-        st.info("📈 **Trend**: 15% increase in orders expected next week")
+        st.info("?? **Trend**: 15% increase in orders expected next week")
     with insight_cols[1]:
-        st.warning("⚠️ **Risk**: Potential stockout for Electronics category")
+        st.warning("?? **Risk**: Potential stockout for Electronics category")
     with insight_cols[2]:
-        st.success("💡 **Opportunity**: Optimize shipping routes for 20% savings")
+        st.success("?? **Opportunity**: Optimize shipping routes for 20% savings")
 
 # Tab 6: Integrations
 with tab6:
-    st.markdown("### 🔌 System Integrations")
+    st.markdown("### ?? System Integrations")
     
     # Integration cards
     col1, col2, col3 = st.columns(3)
@@ -629,7 +629,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📦 ERP System</h3>
+                <h3>?? ERP System</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Last Sync: 2 minutes ago</p>
                 <p>Data Flow: 1.2 MB/s</p>
@@ -642,7 +642,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📊 BI Tools</h3>
+                <h3>?? BI Tools</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Last Export: 5 minutes ago</p>
                 <p>Reports: 12 generated today</p>
@@ -655,7 +655,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📱 Mobile App</h3>
+                <h3>?? Mobile App</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Active Users: 8</p>
                 <p>Push Notifications: Enabled</p>
@@ -665,37 +665,37 @@ with tab6:
                 st.info("Notification sent to all mobile users")
     
     # API endpoints
-    st.markdown("### 📡 API Endpoints")
+    st.markdown("### ?? API Endpoints")
     api_data = pd.DataFrame({
         'Endpoint': ['/api/v1/inventory', '/api/v1/orders', '/api/v1/analytics', '/api/v1/users'],
         'Method': ['GET, POST', 'GET, PUT', 'GET', 'GET, POST, DELETE'],
-        'Status': ['✅ Active', '✅ Active', '✅ Active', '✅ Active'],
+        'Status': ['? Active', '? Active', '? Active', '? Active'],
         'Calls/min': ['245', '189', '567', '43']
     })
-    st.dataframe(api_data, use_container_width=True, hide_index=True)
+    st.dataframe(api_data, width='stretch', hide_index=True)
 
 # Fixed Footer
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
 footer_html = f'''
 <div class="footer-container">
     <div class="footer-links">
-        <a href="#" class="footer-link" target="_blank">📄 API Docs</a>
-        <a href="#" class="footer-link" target="_blank">🆘 Support</a>
-        <a href="#" class="footer-link" target="_blank">📧 Contact</a>
-        <a href="#" class="footer-link" target="_blank">🔒 Privacy</a>
-        <a href="#" class="footer-link" target="_blank">📜 Terms</a>
-        <a href="#" class="footer-link" target="_blank">🤖 AI Help</a>
+        <a href="#" class="footer-link" target="_blank">?? API Docs</a>
+        <a href="#" class="footer-link" target="_blank">?? Support</a>
+        <a href="#" class="footer-link" target="_blank">?? Contact</a>
+        <a href="#" class="footer-link" target="_blank">?? Privacy</a>
+        <a href="#" class="footer-link" target="_blank">?? Terms</a>
+        <a href="#" class="footer-link" target="_blank">?? AI Help</a>
     </div>
     <div style="display: flex; justify-content: center; align-items: center; gap: 25px; margin: 8px 0;">
         <div style="display: flex; align-items: center;">
             <span class="status-indicator"></span>
             <span style="font-size: 13px;">All Systems Operational</span>
         </div>
-        <span class="metric-badge">⚡ Response: 0.3s</span>
-        <span class="metric-badge">📈 Uptime: 99.9%</span>
-        <span class="metric-badge">👥 Users: 23</span>
+        <span class="metric-badge">? Response: 0.3s</span>
+        <span class="metric-badge">?? Uptime: 99.9%</span>
+        <span class="metric-badge">?? Users: 23</span>
     </div>
-    <div style="font-size: 11px; color: #ccc;">© 2026 Smart WMS | {current_time}</div>
+    <div style="font-size: 11px; color: #ccc;">� 2026 Smart WMS | {current_time}</div>
 </div>
 '''
 st.markdown(footer_html, unsafe_allow_html=True)
