@@ -827,3 +827,79 @@ st.markdown(footer_html, unsafe_allow_html=True)
 # Update timestamp
 if (datetime.now() - st.session_state.last_update).seconds >= refresh_rate:
     st.session_state.last_update = datetime.now()
+
+# Enhanced Team Chat with Video Call
+with tab3:
+    st.markdown("### 💬 Team Communication")
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        # Video Call Section
+        st.markdown("#### 📹 Video Conference")
+        
+        # Generate unique room ID
+        import random
+        import string
+        
+        col_a, col_b = st.columns([3, 1])
+        with col_a:
+            custom_room = st.text_input("Room Name", placeholder="Enter room name", key="video_room_input")
+        with col_b:
+            if st.button("🎥 Start Call", use_container_width=True):
+                if custom_room:
+                    room_id = custom_room.replace(" ", "-").lower()
+                else:
+                    random_suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+                    room_id = f"WMS-{random_suffix}"
+                st.session_state['video_room'] = room_id
+        
+        if 'video_room' in st.session_state:
+            room_id = st.session_state['video_room']
+            
+            call_platform = st.selectbox(
+                "Platform",
+                ["Jitsi Meet (Free)", "Google Meet", "Zoom", "Teams"],
+                key="platform_select"
+            )
+            
+            if call_platform == "Jitsi Meet (Free)":
+                jitsi_url = f"https://meet.jit.si/{room_id}"
+                st.markdown(f"""
+                <a href="{jitsi_url}" target="_blank" style="background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin: 10px 0;">
+                    🔗 Join Video Call: {room_id}
+                </a>
+                """, unsafe_allow_html=True)
+            else:
+                st.info(f"Create a {call_platform} meeting and share this ID: **{room_id}**")
+        
+        # Existing chat messages
+        st.markdown("#### 💬 Chat Messages")
+        team_chat = st.container()
+        with team_chat:
+            st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">👨‍💼 John: Starting video call now</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">👩‍💼 Sarah: Joining the call</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">🤖 System: Video conference room created: WMS-1234</div>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Message input
+        col_x, col_y = st.columns([4, 1])
+        with col_x:
+            st.text_input("Type your message...", key="team_msg_video")
+        with col_y:
+            st.button("📤 Send", key="send_team_video")
+    
+    with col2:
+        st.markdown("#### 👥 Online Team")
+        st.success("🟢 John (Manager)")
+        st.success("🟢 Sarah (Shipping)")
+        st.success("🟢 Mike (Tech)")
+        st.warning("🟡 Alice (Break)")
+        st.error("🔴 Bob (Offline)")
+        
+        st.markdown("#### 📋 Quick Actions")
+        if st.button("📹 Share Screen"):
+            st.info("Screen sharing available in Jitsi Meet")
+        if st.button("🎤 Test Mic"):
+            st.info("Check your microphone settings")
