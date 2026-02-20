@@ -1,7 +1,10 @@
 ﻿"""
 Advanced Real-Time Dashboard with Multiple Applications
-Smart Warehouse Management System
+Smart Warehouse Management System - Fixed Version
 """
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import streamlit as st
 import pandas as pd
@@ -11,10 +14,8 @@ import plotly.express as px
 from datetime import datetime, timedelta
 import random
 import time
-import json
 import hashlib
 from streamlit_autorefresh import st_autorefresh
-import plotly.figure_factory as ff
 
 # Page configuration
 st.set_page_config(
@@ -114,48 +115,6 @@ st.markdown("""
         animation: none;
     }
     
-    /* Footer with links */
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        color: white;
-        text-align: center;
-        padding: 1rem;
-        font-size: 14px;
-        z-index: 1000;
-        border-top: 1px solid #4a4a4a;
-    }
-    
-    .footer a {
-        color: #ffd700;
-        text-decoration: none;
-        margin: 0 15px;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .footer a:after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: -5px;
-        left: 0;
-        background-color: #ffd700;
-        transition: width 0.3s ease;
-    }
-    
-    .footer a:hover:after {
-        width: 100%;
-    }
-    
-    .footer a:hover {
-        color: white;
-    }
-    
     /* Chat container */
     .chat-container {
         background: white;
@@ -184,31 +143,57 @@ st.markdown("""
         color: black;
     }
     
-    /* Progress bar */
-    .progress-container {
+    /* Footer styling */
+    .footer-container {
+        position: fixed;
+        left: 0;
+        bottom: 0;
         width: 100%;
-        background-color: #f0f0f0;
-        border-radius: 10px;
-        margin: 10px 0;
-    }
-    
-    .progress-bar {
-        height: 10px;
-        border-radius: 10px;
-        background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
-        transition: width 0.5s ease;
-    }
-    
-    /* Notification badge */
-    .notification-badge {
-        background-color: red;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         color: white;
-        border-radius: 50%;
-        padding: 2px 6px;
+        text-align: center;
+        padding: 12px 0;
+        border-top: 2px solid #4a90e2;
+        z-index: 999;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 8px;
+    }
+    
+    .footer-link {
+        color: #ffd700;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        padding: 0 5px;
+    }
+    
+    .footer-link:hover {
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    .metric-badge {
+        background: rgba(255,255,255,0.15);
+        padding: 4px 12px;
+        border-radius: 20px;
         font-size: 12px;
-        position: relative;
-        top: -10px;
-        right: -5px;
+        display: inline-block;
+    }
+    
+    /* Adjust main content for footer */
+    .main > div {
+        margin-bottom: 140px;
+    }
+    
+    .block-container {
+        padding-bottom: 8rem;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -227,46 +212,14 @@ if 'initialized' not in st.session_state:
         'notifications': True,
         'auto_refresh': True
     }
+    st.session_state.last_update = datetime.now()
 
 # Auto-refresh configuration
 refresh_rate = st.sidebar.slider("🔄 Refresh Rate (seconds)", 1, 60, 5)
 count = st_autorefresh(interval=refresh_rate * 1000, key="auto_refresh")
 
-# Authentication system
-def check_password():
-    """Returns `True` if the user had the correct password."""
-    
-    def login_form():
-        with st.form("Credentials"):
-            st.text_input("Username", key="username")
-            st.text_input("Password", type="password", key="password")
-            st.form_submit_button("Login", on_click=password_entered)
-    
-    def password_entered():
-        if st.session_state["username"] in st.secrets["passwords"] and \
-           st.session_state["password"] == st.secrets["passwords"][st.session_state["username"]]:
-            st.session_state["password_correct"] = True
-            del st.session_state["password"]
-            del st.session_state["username"]
-        else:
-            st.session_state["password_correct"] = False
-            st.session_state.login_attempts += 1
-    
-    if st.session_state.get("password_correct", False):
-        return True
-    
-    login_form()
-    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
-        st.error(f"😕 Invalid credentials. Attempts: {st.session_state.login_attempts}/3")
-        if st.session_state.login_attempts >= 3:
-            st.warning("Too many failed attempts. Please try again later.")
-            st.stop()
-    return False
-
 # Sidebar with real-time info
 with st.sidebar:
-    st.image("https://via.placeholder.com/300x150/1a1a2e/ffffff?text=SMART+WMS+AI", use_container_width=True)
-    
     st.markdown("## 🤖 AI Control Center")
     
     # Real-time clock
@@ -304,11 +257,29 @@ with st.sidebar:
                 time.sleep(2)
             st.success("Data synced!")
         
-        if st.button("📧 Send Alerts", use_container_width=True):
+        if st.button("📢 Send Alerts", use_container_width=True):
             st.info("Alerts sent to all users")
+    
+    # System performance metrics
+    st.markdown("---")
+    st.markdown("### 📊 System Performance")
+    
+    # Real-time metrics
+    metrics_col1, metrics_col2 = st.columns(2)
+    with metrics_col1:
+        st.metric("Response Time", "0.3s", "-0.1s")
+        st.metric("CPU Load", "45%", "+5%")
+    with metrics_col2:
+        st.metric("Memory", "62%", "-2%")
+        st.metric("Network", "1.2 MB/s", "+0.3")
+    
+    # Data stream indicator
+    st.markdown("### 📡 Data Stream")
+    st.progress(random.uniform(0.5, 0.9), text=f"Live Data: {random.randint(100, 500)} packets/s")
 
 # Main header
-st.markdown("""
+current_time = datetime.now().strftime('%H:%M:%S')
+st.markdown(f"""
 <div class="main-header">
     <h1>🏭 Advanced Smart WMS Dashboard</h1>
     <p style="font-size: 1.2rem;">Real-time warehouse management with AI-powered insights and automation</p>
@@ -316,10 +287,10 @@ st.markdown("""
         <span>🔴 Live</span>
         <span>📊 Real-time Analytics</span>
         <span>🤖 AI Assistant</span>
-        <span>⚡ Auto-refresh: {}s</span>
+        <span>⚡ Auto-refresh: {refresh_rate}s</span>
     </div>
 </div>
-""".format(refresh_rate), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Notification area
 if st.session_state.notifications:
@@ -445,11 +416,14 @@ with tab2:
         st.markdown('<div class="chat-container">', unsafe_allow_html=True)
         
         # Display chat messages
-        for msg in st.session_state.chat_messages[-10:]:
-            if msg['type'] == 'user':
-                st.markdown(f'<div class="message user-message">👤 {msg["content"]}</div>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'<div class="message bot-message">🤖 {msg["content"]}</div>', unsafe_allow_html=True)
+        if not st.session_state.chat_messages:
+            st.markdown('<div class="message bot-message">🤖 Hello! How can I help you with your warehouse today?</div>', unsafe_allow_html=True)
+        else:
+            for msg in st.session_state.chat_messages[-10:]:
+                if msg['type'] == 'user':
+                    st.markdown(f'<div class="message user-message">👤 {msg["content"]}</div>', unsafe_allow_html=True)
+                else:
+                    st.markdown(f'<div class="message bot-message">🤖 {msg["content"]}</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -571,7 +545,7 @@ with tab4:
             task_desc = st.text_input("Task Description")
             assignee = st.selectbox("Assignee", ['John', 'Sarah', 'Mike', 'Bob', 'Alice'])
             priority = st.selectbox("Priority", ['High', 'Medium', 'Low'])
-            due_date = st.date_input("Due Date")
+            due_date = st.date_input("Due Date", datetime.now())
             
             if st.form_submit_button("Create Task"):
                 st.success(f"Task created and assigned to {assignee}")
@@ -634,7 +608,7 @@ with tab5:
         st.plotly_chart(fig_inv_pred, use_container_width=True)
     
     # AI Insights
-    st.markdown("### 🎯 AI Insights")
+    st.markdown("### 🧠 AI Insights")
     insight_cols = st.columns(3)
     
     with insight_cols[0]:
@@ -691,7 +665,7 @@ with tab6:
                 st.info("Notification sent to all mobile users")
     
     # API endpoints
-    st.markdown("### 🌐 API Endpoints")
+    st.markdown("### 📡 API Endpoints")
     api_data = pd.DataFrame({
         'Endpoint': ['/api/v1/inventory', '/api/v1/orders', '/api/v1/analytics', '/api/v1/users'],
         'Method': ['GET, POST', 'GET, PUT', 'GET', 'GET, POST, DELETE'],
@@ -700,72 +674,34 @@ with tab6:
     })
     st.dataframe(api_data, use_container_width=True, hide_index=True)
 
-# Advanced Footer with Important Links
-st.markdown("""
-<div class="footer">
-    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto;">
-        <div style="display: flex; gap: 30px;">
-            <span>© 2026 Smart WMS</span>
-            <span>Version 4.0.0</span>
-            <span>Build: 2026.02.20</span>
-        </div>
-        
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-            <a href="#" target="_blank">🏠 Dashboard</a>
-            <a href="#" target="_blank">📦 Inventory</a>
-            <a href="#" target="_blank">📋 Orders</a>
-            <a href="#" target="_blank">📊 Reports</a>
-            <a href="#" target="_blank">👥 Team</a>
-            <a href="#" target="_blank">⚙️ Settings</a>
-            <a href="#" target="_blank">📄 API Docs</a>
-            <a href="#" target="_blank">🆘 Support</a>
-            <a href="#" target="_blank">📧 Contact</a>
-            <a href="#" target="_blank">🔒 Privacy</a>
-            <a href="#" target="_blank">📜 Terms</a>
-            <a href="#" target="_blank">🤖 AI Help</a>
-        </div>
-        
-        <div>
-            <span class="status-indicator status-online"></span>
-            <span>All Systems Operational</span>
-        </div>
+# Fixed Footer
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+footer_html = f'''
+<div class="footer-container">
+    <div class="footer-links">
+        <a href="#" class="footer-link" target="_blank">📄 API Docs</a>
+        <a href="#" class="footer-link" target="_blank">🆘 Support</a>
+        <a href="#" class="footer-link" target="_blank">📧 Contact</a>
+        <a href="#" class="footer-link" target="_blank">🔒 Privacy</a>
+        <a href="#" class="footer-link" target="_blank">📜 Terms</a>
+        <a href="#" class="footer-link" target="_blank">🤖 AI Help</a>
     </div>
-    
-    <div style="margin-top: 10px; font-size: 12px; color: #888; display: flex; gap: 20px; justify-content: center;">
-        <span>Response Time: 0.3s</span>
-        <span>Uptime: 99.99%</span>
-        <span>Active Users: 23</span>
-        <span>Data Points: 1.2M</span>
-        <span>Last Backup: 5 min ago</span>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 25px; margin: 8px 0;">
+        <div style="display: flex; align-items: center;">
+            <span class="status-indicator"></span>
+            <span style="font-size: 13px;">All Systems Operational</span>
+        </div>
+        <span class="metric-badge">⚡ Response: 0.3s</span>
+        <span class="metric-badge">📈 Uptime: 99.9%</span>
+        <span class="metric-badge">👥 Users: 23</span>
     </div>
+    <div style="font-size: 11px; color: #ccc;">© 2026 Smart WMS | {current_time}</div>
 </div>
-""", unsafe_allow_html=True)
-
-# Real-time data updater
-if 'last_update' not in st.session_state:
-    st.session_state.last_update = datetime.now()
+'''
+st.markdown(footer_html, unsafe_allow_html=True)
 
 # Update timestamp
-current_time = datetime.now()
-if (current_time - st.session_state.last_update).seconds >= refresh_rate:
-    st.session_state.last_update = current_time
+if (datetime.now() - st.session_state.last_update).seconds >= refresh_rate:
+    st.session_state.last_update = datetime.now()
     # Trigger any real-time updates here
     pass
-
-# System performance metrics in sidebar
-with st.sidebar:
-    st.markdown("---")
-    st.markdown("### 📊 System Performance")
-    
-    # Real-time metrics
-    metrics_col1, metrics_col2 = st.columns(2)
-    with metrics_col1:
-        st.metric("Response Time", "0.3s", "-0.1s")
-        st.metric("CPU Load", "45%", "+5%")
-    with metrics_col2:
-        st.metric("Memory", "62%", "-2%")
-        st.metric("Network", "1.2 MB/s", "+0.3")
-    
-    # Data stream indicator
-    st.markdown("### 📡 Data Stream")
-    st.progress(random.uniform(0.5, 0.9), text=f"Live Data: {random.randint(100, 500)} packets/s")

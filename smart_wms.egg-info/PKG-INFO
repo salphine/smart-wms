@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: smart-wms
+Version: 1.0.0
+Requires-Dist: fastapi>=0.104.0
+Requires-Dist: uvicorn>=0.24.0
+Requires-Dist: sqlalchemy>=2.0.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: python-dotenv>=1.0.0
+Dynamic: requires-dist

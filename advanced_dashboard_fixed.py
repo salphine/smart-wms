@@ -1,4 +1,4 @@
-﻿"""
+﻿import warnings; warnings.simplefilter(action='ignore', category=FutureWarning); """
 Advanced Real-Time Dashboard with Multiple Applications
 Smart Warehouse Management System
 """
@@ -19,7 +19,7 @@ import plotly.figure_factory as ff
 # Page configuration
 st.set_page_config(
     page_title="Smart WMS - Advanced Dashboard",
-    page_icon="🏭",
+    page_icon="ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â­",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
@@ -229,7 +229,7 @@ if 'initialized' not in st.session_state:
     }
 
 # Auto-refresh configuration
-refresh_rate = st.sidebar.slider("🔄 Refresh Rate (seconds)", 1, 60, 5)
+refresh_rate = st.sidebar.slider("ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬Å¾ Refresh Rate (seconds)", 1, 60, 5)
 count = st_autorefresh(interval=refresh_rate * 1000, key="auto_refresh")
 
 # Authentication system
@@ -257,7 +257,7 @@ def check_password():
     
     login_form()
     if "password_correct" in st.session_state and not st.session_state["password_correct"]:
-        st.error(f"😕 Invalid credentials. Attempts: {st.session_state.login_attempts}/3")
+        st.error(f"ÃƒÂ°Ã…Â¸Ã‹Å“Ã¢â‚¬Â¢ Invalid credentials. Attempts: {st.session_state.login_attempts}/3")
         if st.session_state.login_attempts >= 3:
             st.warning("Too many failed attempts. Please try again later.")
             st.stop()
@@ -265,21 +265,21 @@ def check_password():
 
 # Sidebar with real-time info
 with st.sidebar:
-    st.image("https://via.placeholder.com/300x150/1a1a2e/ffffff?text=SMART+WMS+AI", use_container_width=True)
+    st.image("https://via.placeholder.com/300x150/1a1a2e/ffffff?text=SMART+WMS+AI", width='stretch')
     
-    st.markdown("## 🤖 AI Control Center")
+    st.markdown("## ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ AI Control Center")
     
     # Real-time clock
-    st.markdown(f"### 🕐 {datetime.now().strftime('%H:%M:%S')}")
+    st.markdown(f"### ÃƒÂ°Ã…Â¸Ã¢â‚¬Â¢Ã‚Â {datetime.now().strftime('%H:%M:%S')}")
     
     # User profile
-    with st.expander("👤 User Profile", expanded=True):
+    with st.expander("ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¤ User Profile", expanded=True):
         st.markdown("**Logged in as:** Admin User")
         st.markdown(f"**Last login:** {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         st.progress(0.7, text="Profile Completion")
     
     # System health
-    with st.expander("🖥️ System Health", expanded=True):
+    with st.expander("ÃƒÂ°Ã…Â¸Ã¢â‚¬â€œÃ‚Â¥ÃƒÂ¯Ã‚Â¸Ã‚Â System Health", expanded=True):
         col1, col2 = st.columns(2)
         with col1:
             st.markdown("CPU:")
@@ -291,32 +291,32 @@ with st.sidebar:
             st.markdown("78%")
     
     # Quick actions
-    with st.expander("⚡ Quick Actions", expanded=True):
-        if st.button("📊 Generate Report", use_container_width=True):
+    with st.expander("ÃƒÂ¢Ã…Â¡Ã‚Â¡ Quick Actions", expanded=True):
+        if st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  Generate Report", width='stretch'):
             st.session_state.notifications.append({
                 'time': datetime.now(),
                 'message': 'Report generation started',
                 'type': 'info'
             })
         
-        if st.button("🔄 Sync Data", use_container_width=True):
+        if st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬Å¾ Sync Data", width='stretch'):
             with st.spinner("Syncing..."):
                 time.sleep(2)
             st.success("Data synced!")
         
-        if st.button("📧 Send Alerts", use_container_width=True):
+        if st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â§ Send Alerts", width='stretch'):
             st.info("Alerts sent to all users")
 
 # Main header
 st.markdown("""
 <div class="main-header">
-    <h1>🏭 Advanced Smart WMS Dashboard</h1>
+    <h1>ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â­ Advanced Smart WMS Dashboard</h1>
     <p style="font-size: 1.2rem;">Real-time warehouse management with AI-powered insights and automation</p>
     <div style="display: flex; gap: 20px; margin-top: 20px;">
-        <span>🔴 Live</span>
-        <span>📊 Real-time Analytics</span>
-        <span>🤖 AI Assistant</span>
-        <span>⚡ Auto-refresh: {}s</span>
+        <span>ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â´ Live</span>
+        <span>ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  Real-time Analytics</span>
+        <span>ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ AI Assistant</span>
+        <span>ÃƒÂ¢Ã…Â¡Ã‚Â¡ Auto-refresh: {}s</span>
     </div>
 </div>
 """.format(refresh_rate), unsafe_allow_html=True)
@@ -334,12 +334,12 @@ if st.session_state.notifications:
 
 # Create tabs for different real-time applications
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Live Analytics",
-    "🤖 AI Assistant",
-    "💬 Team Chat",
-    "📋 Task Manager",
-    "📈 Predictions",
-    "🔌 Integrations"
+    "ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  Live Analytics",
+    "ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ AI Assistant",
+    "ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¬ Team Chat",
+    "ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Â¹ Task Manager",
+    "ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‹â€  Predictions",
+    "ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ…â€™ Integrations"
 ])
 
 # Tab 1: Live Analytics
@@ -347,7 +347,7 @@ with tab1:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 📈 Real-time Sensor Data")
+        st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‹â€  Real-time Sensor Data")
         
         # Simulate real-time data
         current_time = datetime.now()
@@ -379,10 +379,10 @@ with tab1:
             hovermode='x unified',
             height=400
         )
-        st.plotly_chart(fig_live, use_container_width=True)
+        st.plotly_chart(fig_live, width='stretch')
     
     with col2:
-        st.markdown("### 📊 Live Metrics")
+        st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  Live Metrics")
         
         # Real-time gauges
         col_a, col_b = st.columns(2)
@@ -393,7 +393,7 @@ with tab1:
             fig_gauge = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=temp,
-                title={'text': "Temperature °C"},
+                title={'text': "Temperature Ãƒâ€šÃ‚Â°C"},
                 domain={'x': [0, 1], 'y': [0, 1]},
                 gauge={'axis': {'range': [None, 50]},
                        'bar': {'color': "darkblue"},
@@ -403,7 +403,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 40}}))
             fig_gauge.update_layout(height=250)
-            st.plotly_chart(fig_gauge, use_container_width=True)
+            st.plotly_chart(fig_gauge, width='stretch')
         
         with col_b:
             # Humidity gauge
@@ -421,22 +421,22 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 90}}))
             fig_gauge2.update_layout(height=250)
-            st.plotly_chart(fig_gauge2, use_container_width=True)
+            st.plotly_chart(fig_gauge2, width='stretch')
         
         # Live alerts
-        st.markdown("### 🚨 Live Alerts")
+        st.markdown("### ÃƒÂ°Ã…Â¸Ã…Â¡Ã‚Â¨ Live Alerts")
         alert_container = st.container()
         with alert_container:
             if random.random() > 0.7:
-                st.error(f"⚠️ High temperature detected in Zone A at {datetime.now().strftime('%H:%M:%S')}")
+                st.error(f"ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â High temperature detected in Zone A at {datetime.now().strftime('%H:%M:%S')}")
             if random.random() > 0.8:
-                st.warning(f"⚠️ Low inventory alert: SKU-{random.randint(100,999)}")
+                st.warning(f"ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â Low inventory alert: SKU-{random.randint(100,999)}")
             if random.random() > 0.9:
-                st.success(f"✅ System optimized at {datetime.now().strftime('%H:%M:%S')}")
+                st.success(f"ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ System optimized at {datetime.now().strftime('%H:%M:%S')}")
 
 # Tab 2: AI Assistant
 with tab2:
-    st.markdown("### 🤖 AI Warehouse Assistant")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ AI Warehouse Assistant")
     st.markdown("Ask me anything about your warehouse operations")
     
     # Chat interface
@@ -447,9 +447,9 @@ with tab2:
         # Display chat messages
         for msg in st.session_state.chat_messages[-10:]:
             if msg['type'] == 'user':
-                st.markdown(f'<div class="message user-message">👤 {msg["content"]}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="message user-message">ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¤ {msg["content"]}</div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<div class="message bot-message">🤖 {msg["content"]}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="message bot-message">ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ {msg["content"]}</div>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -458,7 +458,7 @@ with tab2:
     with col1:
         user_input = st.text_input("Type your message:", key="ai_input")
     with col2:
-        if st.button("Send", use_container_width=True):
+        if st.button("Send", width='stretch'):
             if user_input:
                 st.session_state.chat_messages.append({'type': 'user', 'content': user_input})
                 
@@ -477,14 +477,14 @@ with tab2:
                 st.rerun()
     
     # AI suggestions
-    with st.expander("💡 AI Suggestions", expanded=True):
-        st.info("📦 Consider restocking SKU-123 - below threshold")
-        st.info("⚡ Peak order time detected - allocate more resources")
-        st.info("🔧 Maintenance recommended for Conveyor Belt B in 2 hours")
+    with st.expander("ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡ AI Suggestions", expanded=True):
+        st.info("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¦ Consider restocking SKU-123 - below threshold")
+        st.info("ÃƒÂ¢Ã…Â¡Ã‚Â¡ Peak order time detected - allocate more resources")
+        st.info("ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â§ Maintenance recommended for Conveyor Belt B in 2 hours")
 
 # Tab 3: Team Chat
 with tab3:
-    st.markdown("### 💬 Team Communication")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¬ Team Communication")
     
     col1, col2 = st.columns([2, 1])
     
@@ -496,10 +496,10 @@ with tab3:
         team_chat = st.container()
         with team_chat:
             st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👨‍💼 John: Inventory check completed</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👩‍💼 Sarah: Shipping department ready</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">👨‍🔧 Mike: Maintenance scheduled for 3 PM</div>', unsafe_allow_html=True)
-            st.markdown('<div class="message bot-message">🤖 System: New order received #ORD-789</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¨ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¼ John: Inventory check completed</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â©ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¼ Sarah: Shipping department ready</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¨ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â§ Mike: Maintenance scheduled for 3 PM</div>', unsafe_allow_html=True)
+            st.markdown('<div class="message bot-message">ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ System: New order received #ORD-789</div>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Message input
@@ -507,25 +507,25 @@ with tab3:
         with col_a:
             st.text_input("Type your message...", key="team_msg")
         with col_b:
-            st.button("📤 Send", key="send_team")
+            st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¤ Send", key="send_team")
     
     with col2:
         st.markdown("#### Team Online")
-        st.success("🟢 John (Manager)")
-        st.success("🟢 Sarah (Shipping)")
-        st.success("🟢 Mike (Tech)")
-        st.warning("🟡 Alice (Break)")
-        st.error("🔴 Bob (Offline)")
+        st.success("ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â¢ John (Manager)")
+        st.success("ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â¢ Sarah (Shipping)")
+        st.success("ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â¢ Mike (Tech)")
+        st.warning("ÃƒÂ°Ã…Â¸Ã…Â¸Ã‚Â¡ Alice (Break)")
+        st.error("ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â´ Bob (Offline)")
         
         st.markdown("#### Quick Actions")
-        if st.button("📹 Start Video Call"):
+        if st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¹ Start Video Call"):
             st.info("Video call feature coming soon!")
-        if st.button("📢 Broadcast Message"):
+        if st.button("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¢ Broadcast Message"):
             st.info("Broadcast sent to all team members")
 
 # Tab 4: Task Manager
 with tab4:
-    st.markdown("### 📋 Real-time Task Management")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Â¹ Real-time Task Management")
     
     col1, col2 = st.columns([2, 1])
     
@@ -543,7 +543,7 @@ with tab4:
         
         st.dataframe(
             tasks_data,
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
             column_config={
                 "Progress": st.column_config.ProgressColumn(
@@ -563,7 +563,7 @@ with tab4:
             color='Priority',
             title="Task Completion Progress"
         )
-        st.plotly_chart(fig_tasks, use_container_width=True)
+        st.plotly_chart(fig_tasks, width='stretch')
     
     with col2:
         st.markdown("#### Create New Task")
@@ -578,7 +578,7 @@ with tab4:
 
 # Tab 5: Predictions
 with tab5:
-    st.markdown("### 📈 AI-Powered Predictions")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‹â€  AI-Powered Predictions")
     
     # Prediction charts
     col1, col2 = st.columns(2)
@@ -618,7 +618,7 @@ with tab5:
         ))
         
         fig_forecast.update_layout(title="30-Day Demand Forecast", height=400)
-        st.plotly_chart(fig_forecast, use_container_width=True)
+        st.plotly_chart(fig_forecast, width='stretch')
     
     with col2:
         # Inventory prediction
@@ -631,22 +631,22 @@ with tab5:
             go.Bar(name='Predicted (30 days)', x=categories, y=predicted_inv)
         ])
         fig_inv_pred.update_layout(title="Inventory Level Prediction", height=400, barmode='group')
-        st.plotly_chart(fig_inv_pred, use_container_width=True)
+        st.plotly_chart(fig_inv_pred, width='stretch')
     
     # AI Insights
-    st.markdown("### 🎯 AI Insights")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã…Â½Ã‚Â¯ AI Insights")
     insight_cols = st.columns(3)
     
     with insight_cols[0]:
-        st.info("📈 **Trend**: 15% increase in orders expected next week")
+        st.info("ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‹â€  **Trend**: 15% increase in orders expected next week")
     with insight_cols[1]:
-        st.warning("⚠️ **Risk**: Potential stockout for Electronics category")
+        st.warning("ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â **Risk**: Potential stockout for Electronics category")
     with insight_cols[2]:
-        st.success("💡 **Opportunity**: Optimize shipping routes for 20% savings")
+        st.success("ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã‚Â¡ **Opportunity**: Optimize shipping routes for 20% savings")
 
 # Tab 6: Integrations
 with tab6:
-    st.markdown("### 🔌 System Integrations")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ…â€™ System Integrations")
     
     # Integration cards
     col1, col2, col3 = st.columns(3)
@@ -655,7 +655,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📦 ERP System</h3>
+                <h3>ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¦ ERP System</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Last Sync: 2 minutes ago</p>
                 <p>Data Flow: 1.2 MB/s</p>
@@ -668,7 +668,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📊 BI Tools</h3>
+                <h3>ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  BI Tools</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Last Export: 5 minutes ago</p>
                 <p>Reports: 12 generated today</p>
@@ -681,7 +681,7 @@ with tab6:
         with st.container():
             st.markdown("""
             <div class="glass-card">
-                <h3>📱 Mobile App</h3>
+                <h3>ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â± Mobile App</h3>
                 <p>Status: <span style="color: #00ff00;">Connected</span></p>
                 <p>Active Users: 8</p>
                 <p>Push Notifications: Enabled</p>
@@ -691,38 +691,38 @@ with tab6:
                 st.info("Notification sent to all mobile users")
     
     # API endpoints
-    st.markdown("### 🌐 API Endpoints")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â API Endpoints")
     api_data = pd.DataFrame({
         'Endpoint': ['/api/v1/inventory', '/api/v1/orders', '/api/v1/analytics', '/api/v1/users'],
         'Method': ['GET, POST', 'GET, PUT', 'GET', 'GET, POST, DELETE'],
-        'Status': ['✅ Active', '✅ Active', '✅ Active', '✅ Active'],
+        'Status': ['ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ Active', 'ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ Active', 'ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ Active', 'ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ Active'],
         'Calls/min': ['245', '189', '567', '43']
     })
-    st.dataframe(api_data, use_container_width=True, hide_index=True)
+    st.dataframe(api_data, width='stretch', hide_index=True)
 
 # Advanced Footer with Important Links
 st.markdown("""
 <div class="footer">
     <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto;">
         <div style="display: flex; gap: 30px;">
-            <span>© 2026 Smart WMS</span>
+            <span>Ãƒâ€šÃ‚Â© 2026 Smart WMS</span>
             <span>Version 4.0.0</span>
             <span>Build: 2026.02.20</span>
         </div>
         
         <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-            <a href="#" target="_blank">🏠 Dashboard</a>
-            <a href="#" target="_blank">📦 Inventory</a>
-            <a href="#" target="_blank">📋 Orders</a>
-            <a href="#" target="_blank">📊 Reports</a>
-            <a href="#" target="_blank">👥 Team</a>
-            <a href="#" target="_blank">⚙️ Settings</a>
-            <a href="#" target="_blank">📄 API Docs</a>
-            <a href="#" target="_blank">🆘 Support</a>
-            <a href="#" target="_blank">📧 Contact</a>
-            <a href="#" target="_blank">🔒 Privacy</a>
-            <a href="#" target="_blank">📜 Terms</a>
-            <a href="#" target="_blank">🤖 AI Help</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â  Dashboard</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¦ Inventory</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Â¹ Orders</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  Reports</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬ËœÃ‚Â¥ Team</a>
+            <a href="#" target="_blank">ÃƒÂ¢Ã…Â¡Ã¢â€žÂ¢ÃƒÂ¯Ã‚Â¸Ã‚Â Settings</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Å¾ API Docs</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Â Ã‹Å“ Support</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â§ Contact</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬â„¢ Privacy</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…â€œ Terms</a>
+            <a href="#" target="_blank">ÃƒÂ°Ã…Â¸Ã‚Â¤Ã¢â‚¬â€œ AI Help</a>
         </div>
         
         <div>
@@ -755,7 +755,7 @@ if (current_time - st.session_state.last_update).seconds >= refresh_rate:
 # System performance metrics in sidebar
 with st.sidebar:
     st.markdown("---")
-    st.markdown("### 📊 System Performance")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã…Â  System Performance")
     
     # Real-time metrics
     metrics_col1, metrics_col2 = st.columns(2)
@@ -767,5 +767,223 @@ with st.sidebar:
         st.metric("Network", "1.2 MB/s", "+0.3")
     
     # Data stream indicator
-    st.markdown("### 📡 Data Stream")
+    st.markdown("### ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã‚Â¡ Data Stream")
     st.progress(random.uniform(0.5, 0.9), text=f"Live Data: {random.randint(100, 500)} packets/s")
+# ===== FIXED FOOTER - APPENDED VIA POWERSHELL =====
+import datetime
+current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+footer_html = f"""
+<style>
+    .footer-container {{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        text-align: center;
+        padding: 12px 0;
+        border-top: 2px solid #4a90e2;
+        z-index: 999;
+    }}
+    .status-indicator {{
+        height: 10px; width: 10px; background-color: #28a745; border-radius: 50%; display: inline-block; margin-right: 5px;
+        animation: pulse 2s infinite;
+    }}
+    @keyframes pulse {{
+        0% {{ box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }}
+        70% {{ box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }}
+        100% {{ box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }}
+    }}
+    .footer-links {{
+        display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 8px;
+    }}
+    .footer-link {{
+        text-decoration: none; color: #ffd700; font-size: 14px; transition: all 0.3s ease; cursor: default;
+        padding: 0 5px;
+    }}
+    .footer-link:hover {{
+        color: white; transform: scale(1.05);
+    }}
+    .metric-badge {{
+        background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block;
+    }}
+</style>
+
+<div class="footer-container">
+    <div class="footer-links">
+        <span class="footer-link">📄 API Docs</span>
+        <span class="footer-link">🆘 Support</span>
+        <span class="footer-link">📧 Contact</span>
+        <span class="footer-link">🔒 Privacy</span>
+        <span class="footer-link">📜 Terms</span>
+        <span class="footer-link">🤖 AI Help</span>
+    </div>
+    
+    <div class="metrics-row">
+        <div style="display: flex; align-items: center;">
+            <span class="status-indicator"></span>
+            <span>All Systems Operational</span>
+        </div>
+        <span class="metric-item">⚡ Response: 0.3s</span>
+        <span class="metric-item">📈 Uptime: 99.99%</span>
+        <span class="metric-item">👥 Users: 23</span>
+    </div>
+    
+    <div class="footer-copyright">
+        © 2026 Smart WMS | Last Updated: {current_time}
+    </div>
+</div>
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
+# Adjust main content padding so the footer doesn't cover data
+st.markdown("<style>.main > div { margin-bottom: 140px; } .block-container { padding-bottom: 8rem; }</style>", unsafe_allow_html=True)
+# ===== SAFE FOOTER VERSION =====
+import datetime
+current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+footer_html = f"""
+<style>
+    .footer-container {{
+        position: fixed; left: 0; bottom: 0; width: 100%;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white; text-align: center; padding: 12px 0; z-index: 999;
+    }}
+    .metric-badge {{ background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }}
+</style>
+<div class="footer-container">
+    <div class="footer-links">
+        <span class="footer-link">📄 API Docs</span>
+        <span class="footer-link">🆘 Support</span>
+        <span class="footer-link">📧 Contact</span>
+        <span class="footer-link">🔒 Privacy</span>
+        <span class="footer-link">📜 Terms</span>
+        <span class="footer-link">🤖 AI Help</span>
+    </div>
+    
+    <div class="metrics-row">
+        <div style="display: flex; align-items: center;">
+            <span class="status-indicator"></span>
+            <span>All Systems Operational</span>
+        </div>
+        <span class="metric-item">⚡ Response: 0.3s</span>
+        <span class="metric-item">📈 Uptime: 99.99%</span>
+        <span class="metric-item">👥 Users: 23</span>
+    </div>
+    
+    <div class="footer-copyright">
+        © 2026 Smart WMS | Last Updated: {current_time}
+    </div>
+</div>
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
+st.markdown("<style>.main > div { margin-bottom: 100px; }</style>", unsafe_allow_html=True)
+
+
+# ===== CLEAN REPAIRED FOOTER =====
+import datetime
+now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+footer_html = f'''
+<style>
+    .footer-container {{
+        position: fixed; left: 0; bottom: 0; width: 100%;
+        background: #1e3c72; color: white; text-align: center;
+        padding: 10px 0; z-index: 999; font-family: sans-serif;
+    }}
+    .status-dot {{
+        height: 10px; width: 10px; background-color: #28a745;
+        border-radius: 50%; display: inline-block; margin-right: 5px;
+    }}
+</style>
+<div class="footer-container">
+    <div class="footer-links">
+        <span class="footer-link">📄 API Docs</span>
+        <span class="footer-link">🆘 Support</span>
+        <span class="footer-link">📧 Contact</span>
+        <span class="footer-link">🔒 Privacy</span>
+        <span class="footer-link">📜 Terms</span>
+        <span class="footer-link">🤖 AI Help</span>
+    </div>
+    
+    <div class="metrics-row">
+        <div style="display: flex; align-items: center;">
+            <span class="status-indicator"></span>
+            <span>All Systems Operational</span>
+        </div>
+        <span class="metric-item">⚡ Response: 0.3s</span>
+        <span class="metric-item">📈 Uptime: 99.99%</span>
+        <span class="metric-item">👥 Users: 23</span>
+    </div>
+    
+    <div class="footer-copyright">
+        © 2026 Smart WMS | Last Updated: {current_time}
+    </div>
+</div>
+'''
+st.markdown(footer_html, unsafe_allow_html=True)# ===== FIXED FOOTER - NO CLICKING ERRORS =====
+footer_html = """
+<style>
+    .footer-container {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        text-align: center;
+        padding: 12px 0;
+        border-top: 2px solid #4a90e2;
+        z-index: 999;
+    }
+    .status-indicator {
+        height: 10px; width: 10px; background-color: #28a745; border-radius: 50%; display: inline-block; margin-right: 5px;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+    .footer-links {
+        display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 8px;
+    }
+    .footer-link {
+        text-decoration: none; color: #ffd700; font-size: 14px; transition: all 0.3s ease; cursor: default;
+        padding: 0 5px;
+    }
+    .footer-link:hover {
+        color: white; transform: scale(1.05);
+    }
+    .metric-badge {
+        background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block;
+    }
+</style>
+
+<div class="footer-container">
+    <div class="footer-links">
+        <span class="footer-link">📄 API Docs</span>
+        <span class="footer-link">🆘 Support</span>
+        <span class="footer-link">📧 Contact</span>
+        <span class="footer-link">🔒 Privacy</span>
+        <span class="footer-link">📜 Terms</span>
+        <span class="footer-link">🤖 AI Help</span>
+    </div>
+    
+    <div class="metrics-row">
+        <div style="display: flex; align-items: center;">
+            <span class="status-indicator"></span>
+            <span>All Systems Operational</span>
+        </div>
+        <span class="metric-item">⚡ Response: 0.3s</span>
+        <span class="metric-item">📈 Uptime: 99.99%</span>
+        <span class="metric-item">👥 Users: 23</span>
+    </div>
+    
+    <div class="footer-copyright">
+        © 2026 Smart WMS | Last Updated: {current_time}
+    </div>
+</div>
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
+st.markdown("<style>.main > div { margin-bottom: 140px; } .block-container { padding-bottom: 8rem; }</style>", unsafe_allow_html=True)
+

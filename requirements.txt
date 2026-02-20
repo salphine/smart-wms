@@ -1,3 +1,7 @@
-﻿streamlit==1.22.0
+streamlit==1.22.0
 requests==2.31.0
 plotly==5.17.0
+markdown-it-py==4.0.0
+rich==14.3.2
+pygments==2.19.2
+mdurl==0.1.2
