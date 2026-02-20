@@ -296,7 +296,7 @@ with st.sidebar:
     
     # Quick actions
     with st.expander("⚡ Quick Actions", expanded=True):
-        if st.button("📊 Generate Report", use_container_width=True):
+        if st.button("📊 Generate Report", width='stretch'):
             st.session_state.notifications.append({
                 'time': datetime.now(),
                 'message': 'Report generation started',
@@ -304,12 +304,12 @@ with st.sidebar:
             })
             st.success("Report generation started!")
         
-        if st.button("🔄 Sync Data", use_container_width=True):
+        if st.button("🔄 Sync Data", width='stretch'):
             with st.spinner("Syncing..."):
                 time.sleep(2)
             st.success("Data synced!")
         
-        if st.button("📢 Send Alerts", use_container_width=True):
+        if st.button("📢 Send Alerts", width='stretch'):
             st.info("Alerts sent to all users")
     
     # System performance metrics
@@ -412,7 +412,7 @@ with tab1:
                 hovermode='x unified',
                 height=400
             )
-            st.plotly_chart(fig_live, use_container_width=True)
+            st.plotly_chart(fig_live, width='stretch')
         else:
             st.info("Collecting sensor data...")
     
@@ -438,7 +438,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 40}}))
             fig_gauge.update_layout(height=250, margin=dict(l=20, r=20, t=50, b=20))
-            st.plotly_chart(fig_gauge, use_container_width=True)
+            st.plotly_chart(fig_gauge, width='stretch')
         
         with col_b:
             # Humidity gauge
@@ -456,7 +456,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 90}}))
             fig_gauge2.update_layout(height=250, margin=dict(l=20, r=20, t=50, b=20))
-            st.plotly_chart(fig_gauge2, use_container_width=True)
+            st.plotly_chart(fig_gauge2, width='stretch')
         
         # Live alerts
         st.markdown("### ⚠️ Live Alerts")
@@ -498,7 +498,7 @@ with tab2:
     with col1:
         user_input = st.text_input("Type your message:", key="ai_input")
     with col2:
-        if st.button("Send", use_container_width=True):
+        if st.button("Send", width='stretch'):
             if user_input:
                 st.session_state.chat_messages.append({'type': 'user', 'content': user_input})
                 
@@ -558,7 +558,7 @@ with tab3:
         with col_a:
             team_message = st.text_input("Type your message...", key="team_msg")
         with col_b:
-            if st.button("📤 Send", key="send_team", use_container_width=True):
+            if st.button("📤 Send", key="send_team", width='stretch'):
                 if team_message:
                     st.session_state.team_chat_messages.append({
                         "user": "You",
@@ -576,10 +576,10 @@ with tab3:
         st.error("🔴 Broivin wasama (Offline)")
         
         st.markdown("#### Quick Actions")
-        if st.button("📹 Start Video Call", use_container_width=True):
+        if st.button("📹 Start Video Call", width='stretch'):
             st.session_state.show_meeting_options = True
             st.rerun()
-        if st.button("📢 Broadcast Message", use_container_width=True):
+        if st.button("📢 Broadcast Message", width='stretch'):
             st.info("Broadcast sent to all team members")
 
 # Tab 4: Task Manager
@@ -602,7 +602,7 @@ with tab4:
         
         st.dataframe(
             tasks_data,
-            use_container_width=True,
+            width='stretch',
             hide_index=True,
             column_config={
                 "Progress": st.column_config.ProgressColumn(
@@ -624,7 +624,7 @@ with tab4:
                 title="Task Completion Progress",
                 color_discrete_map={'High': 'red', 'Medium': 'orange', 'Low': 'green'}
             )
-            st.plotly_chart(fig_tasks, use_container_width=True)
+            st.plotly_chart(fig_tasks, width='stretch')
     
     with col2:
         st.markdown("#### Create New Task")
@@ -634,7 +634,7 @@ with tab4:
             priority = st.selectbox("Priority", ['High', 'Medium', 'Low'])
             due_date = st.date_input("Due Date", datetime.now())
             
-            if st.form_submit_button("Create Task", use_container_width=True):
+            if st.form_submit_button("Create Task", width='stretch'):
                 st.success(f"Task created and assigned to {assignee}")
 
 # Tab 5: Predictions
@@ -690,7 +690,7 @@ with tab5:
             height=400,
             hovermode='x unified'
         )
-        st.plotly_chart(fig_forecast, use_container_width=True)
+        st.plotly_chart(fig_forecast, width='stretch')
     
     with col2:
         # Inventory prediction
@@ -708,7 +708,7 @@ with tab5:
             barmode='group',
             yaxis_title="Inventory Level %"
         )
-        st.plotly_chart(fig_inv_pred, use_container_width=True)
+        st.plotly_chart(fig_inv_pred, width='stretch')
     
     # AI Insights
     st.markdown("### 💡 AI Insights")
@@ -738,7 +738,7 @@ with tab6:
                 <p>Data Flow: 1.2 MB/s</p>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Sync Now", key="sync_erp", use_container_width=True):
+            if st.button("Sync Now", key="sync_erp", width='stretch'):
                 st.success("ERP sync initiated")
     
     with col2:
@@ -751,7 +751,7 @@ with tab6:
                 <p>Reports: 12 generated today</p>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Export Data", key="export_bi", use_container_width=True):
+            if st.button("Export Data", key="export_bi", width='stretch'):
                 st.success("Data export started")
     
     with col3:
@@ -764,7 +764,7 @@ with tab6:
                 <p>Push Notifications: Enabled</p>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Send Push", key="push_notif", use_container_width=True):
+            if st.button("Send Push", key="push_notif", width='stretch'):
                 st.info("Notification sent to all mobile users")
     
     # API endpoints
@@ -775,7 +775,7 @@ with tab6:
         'Status': ['🟢 Active', '🟢 Active', '🟢 Active', '🟢 Active'],
         'Calls/min': ['245', '189', '567', '43']
     })
-    st.dataframe(api_data, use_container_width=True, hide_index=True)
+    st.dataframe(api_data, width='stretch', hide_index=True)
 
 # Tab 7: Video Call
 with tab7:
@@ -790,7 +790,7 @@ with tab7:
         # Room name input
         custom_room = st.text_input("Room Name (optional)", placeholder="Leave empty for auto-generated")
         
-        if st.button("🎥 Start Video Conference", use_container_width=True):
+        if st.button("🎥 Start Video Conference", width='stretch'):
             if custom_room:
                 room_id = custom_room.replace(" ", "-").lower()
             else:
@@ -875,16 +875,16 @@ with tab7:
         # Quick actions
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("📋 Copy Room ID", use_container_width=True):
+            if st.button("📋 Copy Room ID", width='stretch'):
                 st.success(f"Copied: {room_id}")
         with col2:
-            if st.button("🆕 New Room", use_container_width=True):
+            if st.button("🆕 New Room", width='stretch'):
                 st.session_state['show_meeting_options'] = False
                 if 'current_room' in st.session_state:
                     del st.session_state['current_room']
                 st.rerun()
         with col3:
-            if st.button("🎤 Test Mic/Camera", use_container_width=True):
+            if st.button("🎤 Test Mic/Camera", width='stretch'):
                 st.info("Check your devices before joining")
     
     # Meeting tips
