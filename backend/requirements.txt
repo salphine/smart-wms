@@ -1,7 +1,7 @@
-﻿# backend/requirements.txt
-fastapi==0.104.1
-uvicorn==0.24.0
-sqlalchemy==2.0.23
-databases==0.8.0
-psycopg2-binary==2.9.9
-python-dotenv==1.0.0
+﻿fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+python-multipart
+python-dotenv
+databases
