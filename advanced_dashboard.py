@@ -245,19 +245,19 @@ with st.sidebar:
     
     # Quick actions
     with st.expander("? Quick Actions", expanded=True):
-        if st.button("?? Generate Report", width='stretch'):
+        if st.button("?? Generate Report", use_container_width=True):
             st.session_state.notifications.append({
                 'time': datetime.now(),
                 'message': 'Report generation started',
                 'type': 'info'
             })
         
-        if st.button("?? Sync Data", width='stretch'):
+        if st.button("?? Sync Data", use_container_width=True):
             with st.spinner("Syncing..."):
                 time.sleep(2)
             st.success("Data synced!")
         
-        if st.button("?? Send Alerts", width='stretch'):
+        if st.button("?? Send Alerts", use_container_width=True):
             st.info("Alerts sent to all users")
     
     # System performance metrics
@@ -350,7 +350,7 @@ with tab1:
             hovermode='x unified',
             height=400
         )
-        st.plotly_chart(fig_live, width='stretch')
+        st.plotly_chart(fig_live, use_container_width=True)
     
     with col2:
         st.markdown("### ?? Live Metrics")
@@ -374,7 +374,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 40}}))
             fig_gauge.update_layout(height=250)
-            st.plotly_chart(fig_gauge, width='stretch')
+            st.plotly_chart(fig_gauge, use_container_width=True)
         
         with col_b:
             # Humidity gauge
@@ -392,7 +392,7 @@ with tab1:
                        'threshold': {'line': {'color': "red", 'width': 4},
                                    'thickness': 0.75, 'value': 90}}))
             fig_gauge2.update_layout(height=250)
-            st.plotly_chart(fig_gauge2, width='stretch')
+            st.plotly_chart(fig_gauge2, use_container_width=True)
         
         # Live alerts
         st.markdown("### ?? Live Alerts")
@@ -432,7 +432,7 @@ with tab2:
     with col1:
         user_input = st.text_input("Type your message:", key="ai_input")
     with col2:
-        if st.button("Send", width='stretch'):
+        if st.button("Send", use_container_width=True):
             if user_input:
                 st.session_state.chat_messages.append({'type': 'user', 'content': user_input})
                 
@@ -517,7 +517,7 @@ with tab4:
         
         st.dataframe(
             tasks_data,
-            width='stretch',
+            use_container_width=True,
             hide_index=True,
             column_config={
                 "Progress": st.column_config.ProgressColumn(
@@ -537,7 +537,7 @@ with tab4:
             color='Priority',
             title="Task Completion Progress"
         )
-        st.plotly_chart(fig_tasks, width='stretch')
+        st.plotly_chart(fig_tasks, use_container_width=True)
     
     with col2:
         st.markdown("#### Create New Task")
@@ -592,7 +592,7 @@ with tab5:
         ))
         
         fig_forecast.update_layout(title="30-Day Demand Forecast", height=400)
-        st.plotly_chart(fig_forecast, width='stretch')
+        st.plotly_chart(fig_forecast, use_container_width=True)
     
     with col2:
         # Inventory prediction
@@ -605,7 +605,7 @@ with tab5:
             go.Bar(name='Predicted (30 days)', x=categories, y=predicted_inv)
         ])
         fig_inv_pred.update_layout(title="Inventory Level Prediction", height=400, barmode='group')
-        st.plotly_chart(fig_inv_pred, width='stretch')
+        st.plotly_chart(fig_inv_pred, use_container_width=True)
     
     # AI Insights
     st.markdown("### ?? AI Insights")
@@ -672,7 +672,7 @@ with tab6:
         'Status': ['? Active', '? Active', '? Active', '? Active'],
         'Calls/min': ['245', '189', '567', '43']
     })
-    st.dataframe(api_data, width='stretch', hide_index=True)
+    st.dataframe(api_data, use_container_width=True, hide_index=True)
 
 # Fixed Footer
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
