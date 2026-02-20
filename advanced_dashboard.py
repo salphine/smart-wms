@@ -364,7 +364,7 @@ with tab1:
             fig_gauge = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=temp,
-                title={'text': "Temperature °C"},
+                title={'text': "Temperature C"},
                 domain={'x': [0, 1], 'y': [0, 1]},
                 gauge={'axis': {'range': [None, 50]},
                        'bar': {'color': "darkblue"},
@@ -695,7 +695,7 @@ footer_html = f'''
         <span class="metric-badge">?? Uptime: 99.9%</span>
         <span class="metric-badge">?? Users: 23</span>
     </div>
-    <div style="font-size: 11px; color: #ccc;">© 2026 Smart WMS | {current_time}</div>
+    <div style="font-size: 11px; color: #ccc;"> 2026 Smart WMS | {current_time}</div>
 </div>
 '''
 st.markdown(footer_html, unsafe_allow_html=True)
